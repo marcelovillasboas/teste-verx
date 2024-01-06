@@ -9,8 +9,6 @@ This is a Node.js API project using PostgreSQL to manage information about rural
 - [Installation](#installation)
 - [Usage](#usage)
 - [Endpoints](#endpoints)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Installation
 
