@@ -41,8 +41,6 @@ function validateCpf (value: string): boolean {
 }
 
 function validateCnpj (cnpj: string): boolean {
-  cnpj = cnpj.replace(/[^\d]+/g, '')
-
   if (cnpj.length !== 14 || cnpj === '00000000000000') return false
 
   let length = cnpj.length - 2
