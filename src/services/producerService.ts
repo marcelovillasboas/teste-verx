@@ -6,7 +6,6 @@ export const addProducer = async (req: Request, res: Response): Promise<void> =>
   try {
     const producerData = req.body
 
-    // Validate CPF/CNPJ
     if (!validateCpfCnpj(producerData.cpfCnpj)) {
       res.status(400).json({ error: 'Invalid CPF/CNPJ' })
       return
