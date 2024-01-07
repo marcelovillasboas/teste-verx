@@ -1,3 +1,9 @@
+interface Areas {
+  areaTotalHa: number,
+  areaAgricultavelHa: number,
+  areaVegetacaoHa: number,
+}
+
 export const validateCpfCnpj = (value: string): boolean => {
   value = value.replace(/[^\d]/g, '')
   const result = value.length === 11 ? validateCpf(value) : validateCnpj(value)
@@ -70,6 +76,13 @@ function validateCnpj (cnpj: string): boolean {
   result = sum % 11 < 2 ? 0 : 11 - sum % 11
 
   if (result !== Number(verifyingDigits.charAt(1))) return false
+
+  return true
+}
+
+export const validateArea = (areas: Areas): boolean => {
+  const { areaAgricultavelHa, areaTotalHa, areaVegetacaoHa } = areas
+  if ((areaAgricultavelHa + areaVegetacaoHa) > areaTotalHa) return false
 
   return true
 }
