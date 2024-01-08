@@ -3,7 +3,13 @@ import dotenv from 'dotenv'
 
 dotenv.config()
 
-const { POSTGRES_PASSWORD: password, POSTGRES_PORT: port, POSTGRES_USER: user, POSTGRES_HOST: host, POSTGRES_DATABASE: database } = process.env
+const {
+  POSTGRES_PASSWORD: password,
+  POSTGRES_PORT: port,
+  POSTGRES_USER: user,
+  POSTGRES_HOST: host,
+  POSTGRES_DATABASE: database
+} = process.env
 
 const pgp = pgPromise({})
 const dbConfig = {

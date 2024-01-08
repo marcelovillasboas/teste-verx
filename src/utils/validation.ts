@@ -1,7 +1,7 @@
 interface Areas {
-  areaTotalHa: number,
-  areaAgricultavelHa: number,
-  areaVegetacaoHa: number,
+  areaTotalHa: number
+  areaAgricultavelHa: number
+  areaVegetacaoHa: number
 }
 
 export const validateCpfCnpj = (value: string): boolean => {
@@ -23,7 +23,7 @@ function validateCpf (value: string): boolean {
 
   remainder = (sum * 10) % 11
 
-  if ((remainder === 10) || (remainder === 11)) {
+  if (remainder === 10 || remainder === 11) {
     remainder = 0
   }
 
@@ -37,7 +37,7 @@ function validateCpf (value: string): boolean {
 
   remainder = (sum * 10) % 11
 
-  if ((remainder === 10) || (remainder === 11)) {
+  if (remainder === 10 || remainder === 11) {
     remainder = 0
   }
 
@@ -57,10 +57,12 @@ function validateCnpj (cnpj: string): boolean {
 
   for (let i = length; i >= 1; i--) {
     sum += Number(cnpjWithoutDigits.charAt(length - i)) * pos--
-    if (pos < 2) { pos = 9 }
+    if (pos < 2) {
+      pos = 9
+    }
   }
 
-  let result = sum % 11 < 2 ? 0 : 11 - sum % 11
+  let result = sum % 11 < 2 ? 0 : 11 - (sum % 11)
   if (result !== Number(verifyingDigits.charAt(0))) return false
 
   length = length + 1
@@ -70,10 +72,12 @@ function validateCnpj (cnpj: string): boolean {
 
   for (let i = length; i >= 1; i--) {
     sum += Number(cnpjWithoutDigits.charAt(length - i)) * pos--
-    if (pos < 2) { pos = 9 }
+    if (pos < 2) {
+      pos = 9
+    }
   }
 
-  result = sum % 11 < 2 ? 0 : 11 - sum % 11
+  result = sum % 11 < 2 ? 0 : 11 - (sum % 11)
 
   if (result !== Number(verifyingDigits.charAt(1))) return false
 
@@ -82,7 +86,7 @@ function validateCnpj (cnpj: string): boolean {
 
 export const validateArea = (areas: Areas): boolean => {
   const { areaAgricultavelHa, areaTotalHa, areaVegetacaoHa } = areas
-  if ((areaAgricultavelHa + areaVegetacaoHa) > areaTotalHa) return false
+  if (areaAgricultavelHa + areaVegetacaoHa > areaTotalHa) return false
 
   return true
 }

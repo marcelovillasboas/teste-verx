@@ -2,8 +2,8 @@ import db from '../db'
 import { Producer } from '../models/producerModel'
 
 interface CulturesEntry {
-  culturas_plantadas: string[];
-  frequencia: string;
+  culturas_plantadas: string[]
+  frequencia: string
 }
 
 export const createProducer = async (producerData: Producer): Promise<Producer> => {
@@ -25,26 +25,35 @@ export const createProducer = async (producerData: Producer): Promise<Producer> 
 }
 
 export const updateProducer = async (updatedData: Producer): Promise<boolean> => {
-  const updateProducer = await db.result('UPDATE producers SET cpf_cnpj = $2, nome_produtor = $3, nome_fazenda = $4, cidade = $5, estado = $6, area_total_hectares = $7, area_agricultavel_hectares = $8, area_vegetacao_hectares = $9, culturas_plantadas = $10 WHERE cpf_cnpj = $1 AND active = true',
-    [updatedData.cpfCnpj, ...Object.values(updatedData)])
+  const updateProducer = await db.result(
+    'UPDATE producers SET cpf_cnpj = $2, nome_produtor = $3, nome_fazenda = $4, cidade = $5, estado = $6, area_total_hectares = $7, area_agricultavel_hectares = $8, area_vegetacao_hectares = $9, culturas_plantadas = $10 WHERE cpf_cnpj = $1 AND active = true',
+    [updatedData.cpfCnpj, ...Object.values(updatedData)]
+  )
 
   return updateProducer.rowCount > 0
 }
 
 export const deactivateProducer = async (producerId: Producer['cpfCnpj']): Promise<boolean> => {
-  const deletedProducer = await db.result('UPDATE producers SET active = false WHERE cpf_cnpj = $1', [producerId])
+  const deletedProducer = await db.result(
+    'UPDATE producers SET active = false WHERE cpf_cnpj = $1',
+    [producerId]
+  )
 
   return deletedProducer.rowCount > 0
 }
 
 export const selectProducers = async (): Promise<Producer[]> => {
-  const activeProducers = await db.any<Producer>('SELECT cpf_cnpj, nome_produtor, nome_fazenda, cidade, estado, area_total_hectares, area_agricultavel_hectares, area_vegetacao_hectares, culturas_plantadas FROM producers WHERE active = true')
+  const activeProducers = await db.any<Producer>(
+    'SELECT cpf_cnpj, nome_produtor, nome_fazenda, cidade, estado, area_total_hectares, area_agricultavel_hectares, area_vegetacao_hectares, culturas_plantadas FROM producers WHERE active = true'
+  )
 
   return activeProducers
 }
 
 export const countFarms = async (): Promise<number> => {
-  const { totalfarms } = await db.one<{ totalfarms: string }>('SELECT COUNT(DISTINCT nome_fazenda) AS totalFarms FROM producers WHERE active = true')
+  const { totalfarms } = await db.one<{ totalfarms: string }>(
+    'SELECT COUNT(DISTINCT nome_fazenda) AS totalFarms FROM producers WHERE active = true'
+  )
 
   return Number(totalfarms)
 }
